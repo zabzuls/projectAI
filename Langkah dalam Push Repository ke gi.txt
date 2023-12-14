@@ -26,3 +26,5 @@ RANGKUMAN :
 	d. git commit -m " Komit pertama! "
 	e. git remote add origin < kode ssh dari github >
 	f. git push -u origin main
+
+-> apabila terjadi eror masalah remote silahkan tambahkan : git remote set-url origin git@github.com:zabzuls/portofolio.git
