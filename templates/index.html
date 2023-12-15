@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">    
+    <title>Project AI</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="/static/image/LogoWeb.png" alt="Logo">
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./">Home</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <div class="container">
+        <div class="cotainerApel">
+            <img id="previewImage" src="data:image/jpeg;base64,{{ image_base64 }}" alt="SILAHKAN MASUKKAN GAMBAR">
+        </div>
+        <div id="predictionResult">Hasil Prediksi : 
+            <div class="Result"> 
+                {{ hasil_prediksi }}
+            </div>
+        </div>
+        
+
+        <label for="fileInput"></label>
+        <input type="file" id="fileInput" name="image" accept="image/*" style="display: none;" capture="camera" required>
+        <button class="btnInput" type="button" onclick="document.getElementById('fileInput').click();">Pilih File</button>
+
+        <button class="btnSubmit" type="submit" id="submitButton">Predict</button>
+    </div>
+    </form>
+
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function(){
+                var img = document.getElementById('previewImage');
+                img.src = reader.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        });
+
+
+    </script>
+</body>
+</html>

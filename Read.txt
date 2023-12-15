@@ -1,0 +1,2 @@
+UNTUK MENGAKTIFKAN VIRTUAL ENVIRONMENT
+ProjectFlask\Scripts\activate
