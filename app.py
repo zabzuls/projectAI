@@ -6,7 +6,6 @@ import base64
 
 app = Flask(__name__)
 
-# Load the pre-trained machine learning model
 model = keras.models.load_model('./model/apple_classification_model.h5')
 
 @app.route('/')
@@ -30,7 +29,7 @@ def predict():
         image = request.files['image']
 
         # Membaca data gambar dan mengonversinya ke format base64
-        image_data =   image.read()
+        image_data = image.read()
         image_base64 = base64.b64encode(image_data).decode('utf-8')
 
         # Prapemrosesan gambar: membuka, mengubah ukuran, dan mengonversi ke array numpy
@@ -43,15 +42,12 @@ def predict():
         prediction = model.predict(img_array)
 
         # Menentukan apakah buah tersebut busuk atau tidak berdasarkan hasil prediksi
-        if prediction[0][0] >= 0.5:
-            hasil_prediksi = "Busuk"
-        else:
-            hasil_prediksi = "Segar"
+        hasil_prediksi = "Busuk" if prediction[0][0] >= 0.5 else "Segar"
 
         # Mengirim hasil prediksi dan data gambar ke template index.html
         return render_template('index.html', hasil_prediksi=hasil_prediksi, image_base64=image_base64)
     except Exception as e:
         return str(e)
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
